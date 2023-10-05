@@ -8,13 +8,15 @@
         - the greatest decrease in profits (date and amount) over the entire period
 
 '''
+# import modules to read csv
 import csv
-
 import os
 
+# path for csv file
 budget_csv = os.path.join("Resources", "budget_data.csv")
 
-output_txt = os.path.join("Analysis", "budgetAnalysis.txt")
+# path for output file to the Analysis folder
+output_txt = os.path.join("..","Analysis", "budgetAnalysis.txt")
 
 # set variables
 monthsTotal = 0 
@@ -29,18 +31,22 @@ with open(budget_csv) as budget:
     # pnl = budget.read()
     csvReader = csv.reader(budget, delimiter=",") # make csv reader
 
-    next(csvReader) # skip header row
+    # skip header row
+    next(csvReader) 
 
-    next(csvReader) # get first row of data
+    # get first row of data and set it to a variable
+    first_row = next(csvReader) 
 
-
-    monthsTotal = monthsTotal + 1
-    profitChange.append(budget_csv[1])
-    profitTotal = profitChange
+    # add one to the month total since we are skipping the first row of data
+    monthsTotal = monthsTotal + 1 
+    # set the first profit and loss from the csv file as the first previous profit
+    previousProfit = int(first_row[1])
+    # add the first profit and loss to the profit total
+    profitTotal += int(first_row[1])
 
     
     for row in csvReader:
-        # month counter += operator adds 1 to the monthsTotal variable (concatenation)
+        # month counter += operator adds 1 to the monthsTotal variable
         monthsTotal += 1 
 
         # as the loop runs, add the values in the 
@@ -59,28 +65,24 @@ with open(budget_csv) as budget:
         previousProfit = int(row[1])
 
         
-   # for row in profitChange:
-        if profitChange > biggestIncrease[1]:
-            biggestIncrease[1] = profitChange
+        # find the largest profit and loss increase and set it to the current row
+        if newprofitChange > biggestIncrease[1]:
             biggestIncrease[0] = row[0]
-
-        if profitChange < biggestDecrease[1]:
-            biggestDecrease[1] = profitChange
+            biggestIncrease[1] = newprofitChange
+            
+        # find the largest profit and loss decrease and set it to the current row
+        if newprofitChange < biggestDecrease[1]:
             biggestDecrease[0] = row[0]
+            biggestDecrease[1] = newprofitChange
+            
             
 
 # calculate average change by dividing the sum of the profit change list by
 # the amount of rows or values in the profit change list
-avgChange = sum(profitChange[1]) / len(profitChange[1])
+avgChange = sum(profitChange) / len(profitChange)
 
-#if profitChange > biggestIncrease:
-    #profitChange = biggestIncrease
-
-#if profitChange < biggestDecrease:
-   # profitChange = biggestDecrease
-
-
-print("Financial Analyisis")
+# print the Analysis results to the terminal
+print("Financial Analysis")
 print("-----------------------------------")
 print(f"Total Months: {monthsTotal}")
 print(f"Total: ${profitTotal}")
@@ -88,5 +90,13 @@ print(f"Average Change: {avgChange}")
 print(f"Greatest Increase in Profits: {biggestIncrease[0]} (${biggestIncrease[1]})")
 print(f"Greatest Decrease in Profits: {biggestDecrease[0]} (${biggestDecrease[1]})")
 
-    
+# write the analysis results to a text file that outputs to the Analysis folder
+with open (output_txt, "w") as outputTxt:
+    outputTxt.write("Financial Analysis")
+    outputTxt.write("-----------------------------------")
+    outputTxt.write(f"Total Months: {monthsTotal}")
+    outputTxt.write(f"Total: ${profitTotal}")
+    outputTxt.write(f"Average Change: {avgChange}")
+    outputTxt.write(f"Greatest Increase in Profits: {biggestIncrease[0]} (${biggestIncrease[1]})")
+    outputTxt.write(f"Greatest Decrease in Profits: {biggestDecrease[0]} (${biggestDecrease[1]})")    
     
