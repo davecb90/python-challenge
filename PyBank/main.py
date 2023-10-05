@@ -14,7 +14,7 @@ import os
 
 budget_csv = os.path.join("Resources", "budget_data.csv")
 
-output_txt = os.path.join("budgetAnalysis.txt")
+output_txt = os.path.join("Analysis", "budgetAnalysis.txt")
 
 # set variables
 monthsTotal = 0 
@@ -29,7 +29,15 @@ with open(budget_csv) as budget:
     # pnl = budget.read()
     csvReader = csv.reader(budget, delimiter=",") # make csv reader
 
-    headerskip = next(csvReader) # skip header row
+    next(csvReader) # skip header row
+
+    next(csvReader) # get first row of data
+
+
+    monthsTotal = monthsTotal + 1
+    profitChange.append(budget_csv[1])
+    profitTotal = profitChange
+
     
     for row in csvReader:
         # month counter += operator adds 1 to the monthsTotal variable (concatenation)
@@ -49,7 +57,9 @@ with open(budget_csv) as budget:
         # as the loop runs, set the value of previousProfit to the new row value
         # in the profit/loss column
         previousProfit = int(row[1])
+
         
+   # for row in profitChange:
         if profitChange > biggestIncrease[1]:
             biggestIncrease[1] = profitChange
             biggestIncrease[0] = row[0]
