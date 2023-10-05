@@ -92,11 +92,11 @@ print(f"Greatest Decrease in Profits: {biggestDecrease[0]} (${biggestDecrease[1]
 
 # write the analysis results to a text file that outputs to the Analysis folder
 with open (output_txt, "w") as outputTxt:
-    outputTxt.write("Financial Analysis")
-    outputTxt.write("-----------------------------------")
-    outputTxt.write(f"Total Months: {monthsTotal}")
-    outputTxt.write(f"Total: ${profitTotal}")
-    outputTxt.write(f"Average Change: {avgChange}")
-    outputTxt.write(f"Greatest Increase in Profits: {biggestIncrease[0]} (${biggestIncrease[1]})")
-    outputTxt.write(f"Greatest Decrease in Profits: {biggestDecrease[0]} (${biggestDecrease[1]})")    
+    outputTxt.write("Financial Analysis\n")
+    outputTxt.write("-----------------------------------\n")
+    outputTxt.write(f"Total Months: {monthsTotal}\n")
+    outputTxt.write(f"Total: ${profitTotal}\n")
+    outputTxt.write(f"Average Change: {avgChange}\n")
+    outputTxt.write(f"Greatest Increase in Profits: {biggestIncrease[0]} (${biggestIncrease[1]})\n")
+    outputTxt.write(f"Greatest Decrease in Profits: {biggestDecrease[0]} (${biggestDecrease[1]})\n")    
     
