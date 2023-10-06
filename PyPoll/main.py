@@ -12,15 +12,15 @@
 
 '''
 
-
+# import modules
 import csv
 
 import os
-
+# csv file path
 election_csv=os.path.join("Resources", "election_data.csv")
-
-output_txt = os.path.join("..","Analysis", "election_results.txt")
-
+# output file path
+output_txt = os.path.join("..","Analysis", "electionAnalysis.txt")
+# set variable, list, and dictionary
 totalVotes = 0
 candidates = []
 candOptions = {}
@@ -39,13 +39,52 @@ with open(election_csv) as elections:
         totalVotes += 1
 
         # set the candidate name to the current index 2 (Candidate) value
-        candidate_name =row[2]
-        if candidate_name not in candidates:
-            
-            candidates.append(candidate_name)
-            candOptions[candidates]
+        candidateName =row[2]
+        if candidateName not in candidates:
+            # add candidate_name to the candidate list
+            candidates.append(candidateName)
+            # add the name to the candidate dictionary and set equal to one to count
+            # the vote
+            candOptions[candidateName] = 1
         else:
-            candOptions[candidates] += 1
+            # add on 1 to the a candidates total
+            candOptions[candidateName] += 1
 
+# output analysis to terminal
+print(f"Election Results")
+print(f"-------------------------")
+print(f"Total Votes: {totalVotes}")
+print(f"-------------------------")
 
+# find the winner
+# 
+winner = ""  
+winnerTotal = 0
+# loop through candOptions dictionary to get candidate names and total votes for each
+for candidateName, votes in candOptions.items():
+    # calculate vote percentage for each candidate, dividing their vote total
+    # by the total votes
+    votePercentage = round(votes / totalVotes * 100, 3)
+    # print each candidate, percentage, and vote total as it loops
+    print(f"{candidateName}: {votePercentage}% ({votes})")
+    
+    #if votes > candOptions[2]:
+        #winnerTotal = votes
+        #winner = candidateName
+    
+print(f"-------------------------")
+print(f"Winner: {winner}")
+print(f"-------------------------")
 
+# write to electionAnalysis.txt file and output to Analysis
+with open (output_txt, "w") as outputTxt:
+    outputTxt.write(f"Election Results\n")
+    outputTxt.write(f"-------------------------\n")
+    outputTxt.write(f"Total Votes: {totalVotes}\n")
+    outputTxt.write(f"-------------------------\n")
+    for candidateName, votes in candOptions.items():
+       votePercentage = round(votes / totalVotes * 100, 3)
+       outputTxt.write(f"{candidateName}: {votePercentage}% ({votes})\n")
+    outputTxt.write(f"-------------------------\n")
+    outputTxt.write(f"Winner: {winner}\n")
+    outputTxt.write(f"-------------------------\n")
