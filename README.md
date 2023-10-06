@@ -34,14 +34,14 @@ The total number of votes each candidate won
 
 The winner of the election based on popular vote
 
-### Outside sources for code
+### Outside sources for code used
 
 In main.py for PyBank, code used from AskBCSLearning assistant help session:
 
-  profitTotal = += int(first_row[1])
+line 43 - profitTotal = += int(first_row[1])
 
-  previousProfit = int(first_row[1])
+line 45 - previousProfit = int(first_row[1])
 
 In main.py for PyPoll, code developed from stack overflow forum:
 
-for candidateName, votes in candOptions.items():
+line 64 - for candidateName, votes in candOptions.items():
